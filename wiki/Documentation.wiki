@@ -21,6 +21,8 @@ export DISPLAY=:7
 eclipse -nosplash -data <workspace_dir> -application com.ind.eclipse.headlessworkspace.Application [parameters]
 }}}
 
+So, it is not a true headless application, because it will initialize a workbench. But in invisible mode. It is necessary, because Ant launching is not separated form the gui. Please see this bug report: https://bugs.eclipse.org/bugs/show_bug.cgi?id=264338
+
 Possible parameters:
 ==== import ====
 Imports all directory containing .project file to the workspace.
