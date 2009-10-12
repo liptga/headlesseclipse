@@ -39,23 +39,3 @@ Dumps the project build order, listing project static and dynamic references.
 _Under construction_ <br>
 Creates a server instance of <server name>.
 The properties file should contain the server specific parameters. It will print out what is missing...
-
-
-= How it works =
-
-== Initial settings ==
-The plugin will turn off automatic building.
-It will set circular dependencies as an error.
-It will set incomplete build path problems to warning only.
-It will set the name of the default jre to 'JRE'. (some JST tool uses direct references to named installed JREs), so we used this name in our projects.
-
-== Importing projects ==
-This plugin can import projects into the workspace, so it can initialize a directory as a workspace. It very useful in case CI. It will checkout the projects, this plugin will import them into the workspace.
-
-== Correcting build order ==
-After importing, it will correct the build order. It is necessary because dynamic project references can be missing due to improper importing order. This is done using "touch" on a selected of resources (.project, .classpath, etc.).
-
-== Building ==
-It is now nearly ready for the build. But what about external tool builders? Ant needs the gui to be initialized. So a workbench must be initialized (in invisible mode). Another problem with and is the console. I haven't achieved to catch output on Console. So I change the external tool builders' launch configuration to log output to a file, and I poll this file instead. (At the end, the launch configs will be reverted)
-
-So, it is now possible to call builds (clean, and workspace build). The workspace build will start a full build after a clean or after a pure import, otherwise it will start incremental (or manual) build. It is good to remember this if you wish to use external tool builders.
