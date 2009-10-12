@@ -1,3 +1,5 @@
+#summary Usage of the plugin
+
 = Introduction =
 
 We have faced the problem of building our application on our continuous integration server. It was a pain to write separate ant build scripts, because all information is already present in the eclipse environment, so nobody interested in synchronizing hundreds of eclipse projects build path settings to build scripts.
