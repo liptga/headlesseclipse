@@ -30,13 +30,13 @@ Builds all projects using incremental building.
 After a clean, or for the first time, a full build will be run.
 _It will change the external tools builder to log output to a file. At the end, it will restore the original state._
 === exportwars ===
-This will export all dynamic web projects to a war file in the workspace root directory as <project_name>.war
+This will export all dynamic web projects to a war file in the workspace root directory as `<project_name>`.war
 === dumpclasspath ===
-The resolved classpath entries for every java project will be dumped to the workspace root directory as <project_name>.classpath
+The resolved classpath entries for every java project will be dumped to the workspace root directory as `<project_name>`.classpath
 === dumpreferences ===
 Dumps the project build order, listing project static and dynamic references.
 === createserver <properties file> ===
-_Under construction_ `<br>`
+_Under construction_ <br>
 Creates a server instance of <server name>.
 The properties file should contain the server specific parameters. It will print out what is missing...
 
