@@ -41,3 +41,6 @@ Dumps the project build order, listing project static and dynamic references.
 _Under construction_ <br>
 Creates a server instance of <server name>.
 The properties file should contain the server specific parameters. It will print out what is missing...
+
+== How It Works ==
+See the [HowItWorks How It Works] page for details.
