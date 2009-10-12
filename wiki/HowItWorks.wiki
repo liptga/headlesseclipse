@@ -1,3 +1,5 @@
+#summary How it works internally
+
 = How it works =
 
 == Initial settings ==
