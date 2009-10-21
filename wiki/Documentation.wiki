@@ -6,6 +6,10 @@ We have faced the problem of building our application on our continuous integrat
 
 I've googled the web for such a plugin, but all have lack of functionality.
 
+= Requirements =
+
+See plugin.xml for detailed requirements. Short version is you have to add this plugin to plugins directory of Eclipse, which should be an edition of 3.4 or 3.5 version for Java Enterprise Edition (JEE). Get it at [http://eclipse.org/downloads the Eclipse IDE for Java EE Developers link of Eclipse homepage].
+
 = Usage =
 This plugin is an application plugin. You should invoke like this:
 
