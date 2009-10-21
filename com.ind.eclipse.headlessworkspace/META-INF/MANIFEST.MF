@@ -2,9 +2,8 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: HeadlessImport Plug-in
 Bundle-SymbolicName: com.ind.eclipse.headlessworkspace;singleton:=true
-Bundle-Version: 1.1.0
+Bundle-Version: 1.1.2
 Bundle-Activator: com.ind.eclipse.headlessworkspace.Activator
-Bundle-ActivationPolicy: lazy
 Import-Package: org.osgi.framework;version="1.3.0"
 Require-Bundle: org.eclipse.equinox.app,
  org.eclipse.core.resources,
@@ -25,3 +24,4 @@ Require-Bundle: org.eclipse.equinox.app,
  org.eclipse.jdt.core;bundle-version="3.4.4",
  org.eclipse.jdt;bundle-version="3.4.2"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ActivationPolicy: lazy
