@@ -18,7 +18,7 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 public class HeadLessWarExporter
 {
 	private static HeadLessWarExporter instance;
-	
+
 	public static HeadLessWarExporter getInstance()
 	{
 		if (instance == null)
@@ -27,33 +27,33 @@ public class HeadLessWarExporter
 		}
 		return instance;
 	}
-	
+
 	private HeadLessWarExporter()
 	{
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	void exportWars(IProgressMonitor monitor) throws Exception
+	void exportWars(final IProgressMonitor monitor) throws Exception
 	{
-		Set projects = ProjectFacetsManager.getFacetedProjects(WebFacetUtils.WEB_FACET);
-		Iterator it = projects.iterator();
-		File root = ResourcesPlugin.getWorkspace().getRoot().getLocation().toFile();
+		final Set projects = ProjectFacetsManager.getFacetedProjects(WebFacetUtils.WEB_FACET);
+		final Iterator it = projects.iterator();
+		final File root = ResourcesPlugin.getWorkspace().getRoot().getLocation().toFile();
 		while (it.hasNext())
 		{
-			IFacetedProject fp = (IFacetedProject) it.next();
-			IProject p = fp.getProject();
-			
-			String war = new File(root, p.getName() + ".war").getAbsolutePath();
-			
+			final IFacetedProject fp = (IFacetedProject) it.next();
+			final IProject p = fp.getProject();
+
+			final String war = new File(root, p.getName() + ".war").getAbsolutePath();
+
 			SysOutProgressMonitor.out.println("Exporting project '" + p.getName() + "' to: " + war);
-			
-	        IDataModel dataModel = DataModelFactory.createDataModel(new WebComponentExportDataModelProvider());
-	        dataModel.setProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME, p.getName());
-	        dataModel.setProperty(IJ2EEComponentExportDataModelProperties.EXPORT_SOURCE_FILES, false);
-	        dataModel.setProperty(IJ2EEComponentExportDataModelProperties.OVERWRITE_EXISTING, true);
-	        dataModel.setProperty(IJ2EEComponentExportDataModelProperties.ARCHIVE_DESTINATION, war);
-	        
-	        dataModel.getDefaultOperation().execute(monitor, null);
+
+			final IDataModel dataModel = DataModelFactory.createDataModel(new WebComponentExportDataModelProvider());
+			dataModel.setProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME, p.getName());
+			dataModel.setProperty(IJ2EEComponentExportDataModelProperties.EXPORT_SOURCE_FILES, false);
+			dataModel.setProperty(IJ2EEComponentExportDataModelProperties.OVERWRITE_EXISTING, true);
+			dataModel.setProperty(IJ2EEComponentExportDataModelProperties.ARCHIVE_DESTINATION, war);
+
+			dataModel.getDefaultOperation().execute(monitor, null);
 		}
 	}
 }

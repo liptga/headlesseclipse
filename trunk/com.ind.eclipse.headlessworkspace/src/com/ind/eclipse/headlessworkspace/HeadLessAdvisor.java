@@ -13,37 +13,37 @@ import org.eclipse.ui.application.WorkbenchAdvisor;
 
 public class HeadLessAdvisor extends WorkbenchAdvisor
 {
-	private String[] args;
-	private IProgressMonitor monitor;
-	
-	public HeadLessAdvisor(String[] args, IProgressMonitor monitor)
+	private final String[] args;
+	private final IProgressMonitor monitor;
+
+	public HeadLessAdvisor(final String[] args, final IProgressMonitor monitor)
 	{
 		this.args = args;
 		this.monitor = monitor;
 	}
-	
+
 	@Override
 	public String getInitialWindowPerspectiveId()
 	{
 		return "java";
 	}
-	
+
 	@Override
 	public boolean openWindows()
 	{
 		return true;
 	}
-	
+
 	@Override
 	public void postStartup()
 	{
 		super.postStartup();
-		
+
 		try
 		{
 			HeadLessServerCreator.getInstance().startServer(monitor);
 		}
-		catch (Exception e)
+		catch (final Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -51,32 +51,32 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 		PlatformUI.getWorkbench().close();
 		SysOutProgressMonitor.out.println("WORKBENCH CLOSED");
 	}
-	
+
 	@Override
 	public boolean preShutdown()
 	{
 		SysOutProgressMonitor.out.println("PRESHUTDONW");
 		return super.preShutdown();
 	}
-	
+
 	@Override
 	public void postShutdown()
 	{
 		SysOutProgressMonitor.out.println("POSTSHUTDOWN");
 		super.postShutdown();
 	}
-	
+
 	@Override
-	@SuppressWarnings({"unchecked" })
+	@SuppressWarnings( { "unchecked" })
 	public void preStartup()
 	{
 		try
 		{
 			if (args.length > 2 && args[0].equals("createserver"))
-	        {
+			{
 				HeadLessServerCreator.getInstance().createServer(args[1], args[2], monitor);
 
-	        }
+			}
 			else if (args.length == 0)
 			{
 				SysOutProgressMonitor.out.println();
@@ -96,80 +96,84 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 			}
 			else if (args.length == 1 && args[0].equals("dumpreferences"))
 			{
-				HeadLessBuilder builder = HeadLessBuilder.getInstance();
+				final HeadLessBuilder builder = HeadLessBuilder.getInstance();
 				builder.dumpProjectReferences(ResourcesPlugin.getWorkspace().computeProjectOrder(ResourcesPlugin.getWorkspace().getRoot().getProjects()).projects);
 			}
-	        else
-	        {
-				IWorkspaceDescription wsd = ResourcesPlugin.getWorkspace().getDescription();
+			else
+			{
+				final IWorkspaceDescription wsd = ResourcesPlugin.getWorkspace().getDescription();
 				wsd.setAutoBuilding(false);
 				ResourcesPlugin.getWorkspace().setDescription(wsd);
 				ResourcesPlugin.getWorkspace().save(true, null);
 				SysOutProgressMonitor.out.println();
 				SysOutProgressMonitor.out.println("Auto building is set to false");
 				SysOutProgressMonitor.out.println();
-	        	
-				List list = Arrays.asList(args);
-				
-	        	File logFile = new File(ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString(), ".build.log");
-	    		logFile.delete();
 
-	    		BuildLogReader blr = new BuildLogReader(logFile);
-	    		blr.start();
-	    		
-	    		HeadLessBuilder builder = HeadLessBuilder.getInstance();
-	    		Map changes = null;
-	    		if (list.contains("import"))
-	    		{
-	    			builder.importProjects(monitor);
-	    		}
-	    		
-	    		if (list.contains("clean") || list.contains("build"))
-	    		{
-	    			changes = builder.modifyExternalToolBuilders(monitor, logFile);
-	    		}
-	    		
-	    		if (list.contains("clean"))
-	    		{
-	    			builder.cleanProjects(monitor);
-	    		}
-	    		
-	    		if (list.contains("build"))
-	    		{
-	    			builder.buildWorkspace(monitor);
-	    		}
-	    		
-	    		if (changes != null)
-	    		{
-	    			builder.revertExternalToolBuilders(changes);
-	    		}
-	    		
-	    		if (list.contains("exportwars"))
-	    		{
-		    		HeadLessWarExporter.getInstance().exportWars(monitor);
-	    		}
-	    		
-	    		if (list.contains("dumpclasspath"))
-	    		{
+				final List list = Arrays.asList(args);
+
+				final File logFile = new File(ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString(), ".build.log");
+				logFile.delete();
+
+				final BuildLogReader blr = new BuildLogReader(logFile);
+				blr.start();
+
+				final HeadLessBuilder builder = HeadLessBuilder.getInstance();
+				Map changes = null;
+				if (list.contains("import"))
+				{
+					builder.importProjects(monitor);
+				}
+
+				if (list.contains("clean") || list.contains("build"))
+				{
+					changes = builder.modifyExternalToolBuilders(monitor, logFile);
+				}
+
+				if (list.contains("clean"))
+				{
+					builder.cleanProjects(monitor);
+				}
+
+				if (list.contains("build"))
+				{
+					builder.buildWorkspace(monitor);
+				}
+
+				if (changes != null)
+				{
+					builder.revertExternalToolBuilders(changes);
+				}
+
+				if (list.contains("exportwars"))
+				{
+					HeadLessWarExporter.getInstance().exportWars(monitor);
+				}
+				if (list.contains("exportjars"))
+				{
+					HeadLessJarExporter.getInstance().exportJars(monitor);
+				}
+
+				if (list.contains("dumpclasspath"))
+				{
 					builder.dumpClassPath();
-	    		}
-	    		
-	    		//wait ant log to be written out
-	    		Thread.sleep(2000);
+				}
 
-	    		blr.interrupt();
-	    		blr.join();
-	    		
-	    		logFile.delete();
-	    		logFile.deleteOnExit();
-	        }
+				//wait ant log to be written out
+				Thread.sleep(2000);
+
+				blr.interrupt();
+				blr.join();
+
+				logFile.delete();
+				logFile.deleteOnExit();
+			}
 
 			ResourcesPlugin.getWorkspace().save(true, monitor);
 		}
-		catch (Exception e)
+		catch (final Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-	
+
 }
