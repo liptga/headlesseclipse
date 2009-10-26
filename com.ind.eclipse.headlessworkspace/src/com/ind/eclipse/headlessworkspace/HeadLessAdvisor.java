@@ -148,6 +148,12 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 				{
 					HeadLessWarExporter.getInstance().exportWars(monitor);
 				}
+				
+				if (list.contains("exportears"))
+				{
+					HeadLessEarExporter.getInstance().exportEars(monitor);
+				}
+				
 				if (list.contains("exportjars"))
 				{
 					HeadLessJarExporter.getInstance().exportJars(monitor);
