@@ -1,17 +1,17 @@
 package com.ind.eclipse.headlessworkspace;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.ArrayList;
 
-import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jst.j2ee.application.internal.operations.AppClientComponentExportDataModelProvider;
-import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
-import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.jdt.ui.jarpackager.IJarDescriptionReader;
+import org.eclipse.jdt.ui.jarpackager.IJarExportRunnable;
+import org.eclipse.jdt.ui.jarpackager.JarPackageData;
 
 public class HeadLessJarExporter
 {
@@ -29,36 +29,44 @@ public class HeadLessJarExporter
 	private HeadLessJarExporter()
 	{
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	void exportJars(final IProgressMonitor monitor) throws Exception
 	{
-		SysOutProgressMonitor.out.println("Exporting JARS");
+		final ArrayList jardescs = new ArrayList();
+		ResourcesPlugin.getWorkspace().getRoot().accept( new IResourceVisitor(){
 
-		final List projects = Arrays.asList(ResourcesPlugin.getWorkspace().getRoot().getProjects());
-		SysOutProgressMonitor.out.println(projects);
-		final Iterator it = projects.iterator();
-		final File root = ResourcesPlugin.getWorkspace().getRoot().getLocation().toFile();
-		while (it.hasNext())
-		{
-			final IProject p = (IProject) it.next();
-
-			final String jar = new File(root, p.getName() + ".jar").getAbsolutePath();
-
-			SysOutProgressMonitor.out.println("Exporting .... " + p.getName());
-			if (p.getName().equals("bfo.infra"))
+			public boolean visit(IResource res) throws CoreException
 			{
-				SysOutProgressMonitor.out.println("Exporting project '" + p.getName() + "' to: " + jar);
-
-				final IDataModel dataModel = DataModelFactory.createDataModel(new AppClientComponentExportDataModelProvider());
-
-				dataModel.setProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME, p.getName());
-				dataModel.setProperty(IJ2EEComponentExportDataModelProperties.EXPORT_SOURCE_FILES, false);
-				dataModel.setProperty(IJ2EEComponentExportDataModelProperties.OVERWRITE_EXISTING, true);
-				dataModel.setProperty(IJ2EEComponentExportDataModelProperties.ARCHIVE_DESTINATION, jar);
-
-				dataModel.getDefaultOperation().execute(monitor, null);
+				if (res.getName().endsWith(".jardesc"))
+				{
+					jardescs.add(res);
+				}
+				if (res.getProjectRelativePath().segmentCount() > 0)
+				{
+					return false;
+				}
+				return true;
+			}});
+		
+		for (int i = 0; i < jardescs.size(); i++)
+		{
+			IFile jardesc = (IFile) jardescs.get(i);
+			JarPackageData jarPackage = new JarPackageData();
+			IJarDescriptionReader reader = jarPackage.createJarDescriptionReader(jardesc.getContents());
+			reader.read(jarPackage);
+			jarPackage.setSaveManifest(false);
+			jarPackage.setSaveDescription(false);
+			jarPackage.setOverwrite(true);
+			jarPackage.setBuildIfNeeded(false);
+			IPath path = jarPackage.getJarLocation();
+			if (path.segmentCount() > 1)
+			{
+				jarPackage.setJarLocation(path.removeFirstSegments(path.segmentCount() - 1));
 			}
+			SysOutProgressMonitor.out.println("Exporting jar file using jar descriptor: " + jardesc.getFullPath() + " to: " + jarPackage.getAbsoluteJarLocation().toOSString());
+			IJarExportRunnable export = jarPackage.createJarExportRunnable(null);
+			export.run(monitor);
 		}
 	}
 }
