@@ -42,7 +42,7 @@ This will export all dynamic web projects to a war file in the workspace root di
 ==== exportears ====
 This will export all enterprise application projects to an ear file in the workspace root directory as `<project_name>.ear`
 ==== exportjars ====
-This will actually search for [JarDesc `*`.jardesc] files in each project directory, and runs it. The jardesc contains a path to the destination file. Only the file name (last segment of the path) will be used, and the file will be created in the workspace root directory.
+This will actually search for [JarDesc *.jardesc] files in each project directory, and runs it. The jardesc contains a path to the destination file. Only the file name (last segment of the path) will be used, and the file will be created in the workspace root directory.
 ==== dumpclasspath ====
 The resolved classpath entries for every java project will be dumped to the workspace root directory as `<project_name>.classpath`
 ==== dumpreferences ====
