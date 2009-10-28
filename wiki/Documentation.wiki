@@ -39,6 +39,8 @@ After a clean, or for the first time, a full build will be run.
 _It will change the external tools builder to log output to a file. At the end, it will restore the original state._
 ==== exportwars ====
 This will export all dynamic web projects to a war file in the workspace root directory as `<project_name>.war`
+==== exportears ====
+This will export all enterprise application projects to an ear file in the workspace root directory as `<project_name>.ear`
 ==== dumpclasspath ====
 The resolved classpath entries for every java project will be dumped to the workspace root directory as `<project_name>.classpath`
 ==== dumpreferences ====
