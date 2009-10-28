@@ -22,6 +22,12 @@ So, it is now possible to call builds (clean, and workspace build). The workspac
 == Exporting dynamic web projects ==
 If `exportwars` parameter was given, all dynamic web projects will be exported to `<project_name>.war` file in the workspace directory. This will call the same code as the popup menu on a dynamic web project.
 
+== Exporting enterprise application projects ==
+If `exportears` parameter was given, all enterprise application projects will be exported to `<project_name>.ear` file in the workspace directory. This will call the same code as the popup menu on an enterprise application project.
+
+== Exporting jar files ==
+If `exportjars` parameter was given, then the plugin will search for all [JarDesc *.jardesc] files in all project root directories. The plugin will load the description, changes the destination file path to only the last part of the path (just the file name). This will cause that the file will be generated to the workspace root. Then sets the following: will not save the description, will not save the generated manifest (if it is generated), it will not cause to start a build process (as assumed that the workspace is already built). Then calls the normal export, as if one right-clicks on this file, and clicks on "Create JAR".
+
 == Dumping resolved classpaths of java projects ==
 If `dumpclasspath` parameter was given, then the resolved classpath of all java projects will be written to a file called `<project_name>.classpath`. This file will contain only directories and jar files separated with OS specific path separator character. Resolved means that containers and referenced java projects (with exported libraries, etc). will be resolved to absolute directories or absolute jar file locations. (e.g. the JRE classpath container will be resolved to a set of jar files, including the rt.jar, etc...)
 
