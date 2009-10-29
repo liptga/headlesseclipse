@@ -9,15 +9,16 @@ It will set incomplete build path problems to warning only.
 It will set the name of the default jre to 'JRE'. (some JST tool uses direct references to named installed JREs, so we used this name in our projects)
 
 == Importing projects ==
-This plugin can import projects into the workspace, so it can initialize a directory as a workspace. It very useful in case CI. It will checkout the projects, this plugin will import them into the workspace. It will mark `.svn` directories as team private to avoid copying .svn directories to the output directory.
+This plugin can import projects into the workspace, so it can initialize a directory as a workspace. It is very useful in case of CI. It will checkout the projects, this plugin will import them into the workspace. It will mark `.svn` directories as team private to avoid copying .svn directories to the output directory.
+<br>If a project already imported (e.g. running this plugin not only once), the project will be refreshed.
 
 == Correcting build order ==
 After importing, it will correct the build order. It is necessary because dynamic project references can be missing due to improper importing order (wich order is OS and file system dependent). This is done using "touch" on a selected set of resources (.project, .classpath, etc.).
 
 == Building ==
 It is now nearly ready for the build. But what about external tool builders? Ant needs the gui to be initialized. So a workbench must be initialized (in invisible mode). Another problem with ant is the console. I haven't achieved to catch output of the Console. So I change the external tool builders' launch configuration to log output to a file, and I poll this file instead. (At the end, the launch configs will be reverted)
-
-So, it is now possible to call builds (clean, and workspace build). The workspace build will start a full build after a clean or after a pure import, otherwise it will start incremental (or manual) build. It is good to remember this if you wish to use external tool builders.
+<br>
+So, it is now possible to call builds (clean, and workspace build). The workspace build will start a full build (aka After a Clean) after a pure import or after clean, otherwise it will start incremental (aka Manual Build) build. It is good to remember this if you wish to use external tool builders.
 
 == Exporting dynamic web projects ==
 If `exportwars` parameter was given, all dynamic web projects will be exported to `<project_name>.war` file in the workspace directory. This will call the same code as the popup menu on a dynamic web project.
@@ -32,4 +33,4 @@ If `exportjars` parameter was given, then the plugin will search for all [JarDes
 If `dumpclasspath` parameter was given, then the resolved classpath of all java projects will be written to a file called `<project_name>.classpath`. This file will contain only directories and jar files separated with OS specific path separator character. Resolved means that containers and referenced java projects (with exported libraries, etc). will be resolved to absolute directories or absolute jar file locations. (e.g. the JRE classpath container will be resolved to a set of jar files, including the rt.jar, etc...)
 
 == Creating a server instance ==
-It will search the server config of the given name, creates a server runtime associated with the server, and then creates a server. Then it can associate projects with this server, and start it... but it does not work...
+It will search the server config of the given name, creates a server runtime associated with the server, and then creates a server. Then it can associate projects with this server, and start it... but it does not work... the start method hangs...
