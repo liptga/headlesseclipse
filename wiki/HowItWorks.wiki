@@ -7,6 +7,8 @@ The plugin will turn off automatic building.
 It will set circular dependencies as an error.
 It will set incomplete build path problems to warning only.
 It will set the name of the default jre to 'JRE'. (some JST tool uses direct references to named installed JREs, so we used this name in our projects)
+<br>
+It will also set a path variable called `workspace`, which is set to the workspace root.
 
 == Importing projects ==
 This plugin can import projects into the workspace, so it can initialize a directory as a workspace. It is very useful in case of CI. It will checkout the projects, this plugin will import them into the workspace. It will mark `.svn` directories as team private to avoid copying .svn directories to the output directory.
