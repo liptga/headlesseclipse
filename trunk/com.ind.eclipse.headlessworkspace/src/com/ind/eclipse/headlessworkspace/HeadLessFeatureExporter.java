@@ -47,6 +47,7 @@ public class HeadLessFeatureExporter
 		
 		FeatureExportOperation peo = new FeatureExportOperation(info);
 		peo.run(monitor);
+		SysOutProgressMonitor.out.println();
 	}
 
 	@SuppressWarnings({"unchecked"})

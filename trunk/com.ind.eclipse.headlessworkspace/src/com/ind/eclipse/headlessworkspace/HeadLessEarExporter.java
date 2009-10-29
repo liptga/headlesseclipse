@@ -55,6 +55,7 @@ public class HeadLessEarExporter
 			dataModel.setProperty(IJ2EEComponentExportDataModelProperties.ARCHIVE_DESTINATION, ear);
 
 			dataModel.getDefaultOperation().execute(monitor, null);
+			SysOutProgressMonitor.out.println();
 		}
 	}
 }

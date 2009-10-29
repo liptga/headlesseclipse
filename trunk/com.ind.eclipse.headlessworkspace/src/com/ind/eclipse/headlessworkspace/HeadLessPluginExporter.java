@@ -46,6 +46,7 @@ public class HeadLessPluginExporter
 		
 		PluginExportOperation peo = new PluginExportOperation(info);
 		peo.run(monitor);
+		SysOutProgressMonitor.out.println();
 	}
 
 	@SuppressWarnings({"unchecked"})
