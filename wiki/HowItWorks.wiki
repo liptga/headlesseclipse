@@ -34,6 +34,9 @@ If `exportplugins` parameter was given, all plugin projects will be exported to 
 == Exporting PDE feature projects ==
 If `exportfeatures` parameter was given, all feature projects and all connected plugin projects will be exported to the `exportedfeatures.zip` file in the workspace root directory. This is the same as exporting a feature from the UI, and using an archive file as a destination. Sources will not be exported.
 
+== Exporting RCP applications (products) ==
+If `exportproducts` parameter was given, then the plugin will search for `*.product` files, and it will load it and use it to export the product. The product will be exported to a zip file in the workspace root directory, with the same basename as the `*.product` file. It will not synchronize the product with the defining plugin.
+
 == Exporting jar files ==
 If `exportjars` parameter was given, then the plugin will search for all [JarDesc *.jardesc] files in all project root directories. The plugin will load the description, changes the destination file path to only the last part of the path (just the file name). This will cause that the file will be generated to the workspace root. Then sets the following: will not save the description, will not save the generated manifest (if it is generated), it will not cause to start a build process (as assumed that the workspace is already built). Then calls the normal export, as if one right-clicks on this file, and clicks on "Create JAR".
 
