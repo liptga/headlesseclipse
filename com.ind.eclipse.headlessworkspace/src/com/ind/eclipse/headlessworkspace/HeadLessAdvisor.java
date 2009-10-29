@@ -88,6 +88,10 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 				SysOutProgressMonitor.out.println("clean: calls the clean build on every project.");
 				SysOutProgressMonitor.out.println("build: builds all projects using incremental building.\r\n\tAfter a clean, or for the first time, a full build will be run.\r\n\tIt will change the external tools builder to log output to a file. At the end, it will restore the original state.");
 				SysOutProgressMonitor.out.println("exportwars: this will export all dynamic web projects to a war file in the workspace root directory as <project_name>.war");
+				SysOutProgressMonitor.out.println("exportears: this will export all enterprise application projects to an ear file in the workspace root directory as <project_name>.ear");
+				SysOutProgressMonitor.out.println("exportjars: this will search all *.jardesc files, and runs them to export jar files");
+				SysOutProgressMonitor.out.println("exportplugins: export all plugins to the 'exportedplugins.zip' file in the workspace root directory");
+				SysOutProgressMonitor.out.println("exportfeatures: export all features to the 'exportedfeatures.zip' file in the workspace root directory");
 				SysOutProgressMonitor.out.println("dumpclasspath: the resolved classpath entries for every java project will be dumped to the workspace root directory as <project_name>.classpath");
 				SysOutProgressMonitor.out.println("dumpreferences: dumps the project build order, listing project static and dynamic references.");
 				SysOutProgressMonitor.out.println("createserver: creates a server instance of <server name>.\r\n\tThe properties file should contain the server specific parameters. It will print out what is missing...");
@@ -157,6 +161,16 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 				if (list.contains("exportjars"))
 				{
 					HeadLessJarExporter.getInstance().exportJars(monitor);
+				}
+				
+				if (list.contains("exportplugins"))
+				{
+					HeadLessPluginExporter.getInstance().exportPlugins(monitor);
+				}
+				
+				if (list.contains("exportfeatures"))
+				{
+					HeadLessFeatureExporter.getInstance().exportFeatures(monitor);
 				}
 
 				if (list.contains("dumpclasspath"))

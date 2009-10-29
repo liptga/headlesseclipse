@@ -35,6 +35,7 @@ import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.ui.externaltools.internal.model.BuilderUtils;
 import org.eclipse.ui.externaltools.internal.model.ExternalToolBuilder;
 
+@SuppressWarnings("restriction")
 public class HeadLessBuilder
 {
 	private static HeadLessBuilder instance;
@@ -49,12 +50,10 @@ public class HeadLessBuilder
 	}
 	
 	private int errorCount;
-	private String[] strprojects;
 	
 	private HeadLessBuilder()
 	{
 		errorCount = 0;
-		strprojects = null;
 	}
 	
 	public int getErrorCount()
@@ -332,6 +331,7 @@ public class HeadLessBuilder
 		{
 			SysOutProgressMonitor.out.println("Build done.");
 		}
+		SysOutProgressMonitor.out.println();
 	}
 	
 	private IPath makeAbsolute(IPath path)

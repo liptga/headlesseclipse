@@ -15,6 +15,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
+@SuppressWarnings("restriction")
 public class HeadLessWarExporter
 {
 	private static HeadLessWarExporter instance;
