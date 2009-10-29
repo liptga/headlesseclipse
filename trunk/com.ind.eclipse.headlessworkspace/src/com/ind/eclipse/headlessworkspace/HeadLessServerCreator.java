@@ -2,7 +2,6 @@ package com.ind.eclipse.headlessworkspace;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -28,11 +27,10 @@ import org.eclipse.wst.server.core.IServerType;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.server.core.ServerEvent;
 import org.eclipse.wst.server.core.ServerUtil;
-import org.eclipse.wst.server.core.internal.Runtime;
 import org.eclipse.wst.server.core.internal.RuntimeWorkingCopy;
-import org.eclipse.wst.server.core.internal.Server;
 import org.eclipse.wst.server.core.internal.ServerWorkingCopy;
 
+@SuppressWarnings("restriction")
 public class HeadLessServerCreator
 {
 	private static HeadLessServerCreator instance;
@@ -203,7 +201,7 @@ public class HeadLessServerCreator
        	}
 	}
 
-	@SuppressWarnings("restriction")
+/*	@SuppressWarnings("unchecked")
 	private void listServer(Field f, IProgressMonitor monitor) throws Exception
 	{
 		IServer[] servers = ServerCore.getServers();
@@ -229,6 +227,7 @@ public class HeadLessServerCreator
 			System.out.println("Runtime map: " + m);
 		}
 	}
+*/
 	
 	void startServer(IProgressMonitor monitor) throws Exception
 	{
