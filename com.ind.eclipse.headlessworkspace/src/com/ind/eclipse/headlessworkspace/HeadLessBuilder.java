@@ -97,6 +97,7 @@ public class HeadLessBuilder
 		
 		projects = ResourcesPlugin.getWorkspace().computeProjectOrder(projects).projects;
 		dumpProjectReferences(projects);
+		SysOutProgressMonitor.out.println();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -250,6 +251,7 @@ public class HeadLessBuilder
 		projects = ResourcesPlugin.getWorkspace().computeProjectOrder(wroot.getProjects()).projects;
 		
 		dumpProjectReferences(projects);
+		SysOutProgressMonitor.out.println();
 	}
 
 	@SuppressWarnings("unchecked")

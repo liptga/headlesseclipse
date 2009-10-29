@@ -67,6 +67,7 @@ public class HeadLessJarExporter
 			SysOutProgressMonitor.out.println("Exporting jar file using jar descriptor: " + jardesc.getFullPath() + " to: " + jarPackage.getAbsoluteJarLocation().toOSString());
 			IJarExportRunnable export = jarPackage.createJarExportRunnable(null);
 			export.run(monitor);
+			SysOutProgressMonitor.out.println();
 		}
 	}
 }

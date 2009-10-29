@@ -172,6 +172,11 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 				{
 					HeadLessFeatureExporter.getInstance().exportFeatures(monitor);
 				}
+				
+				if (list.contains("exportproducts"))
+				{
+					HeadLessProductExporter.getInstance().exportProducts(monitor);
+				}
 
 				if (list.contains("dumpclasspath"))
 				{

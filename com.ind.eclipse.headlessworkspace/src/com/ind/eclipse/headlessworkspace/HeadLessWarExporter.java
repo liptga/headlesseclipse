@@ -55,6 +55,7 @@ public class HeadLessWarExporter
 			dataModel.setProperty(IJ2EEComponentExportDataModelProperties.ARCHIVE_DESTINATION, war);
 
 			dataModel.getDefaultOperation().execute(monitor, null);
+			SysOutProgressMonitor.out.println();
 		}
 	}
 }
