@@ -47,6 +47,8 @@ This will actually search for [JarDesc *.jardesc] files in each project director
 This will export all plugins in the workspace to the `exportedplugins.zip` file in the workspace root directory.
 ==== exportfeatures ====
 This will export all features and connected plugins in the workspace to the `exportedfeatures.zip` file in the workspace root directory.
+==== exportproducts ====
+This will search for all `*.product` files, and it will load and use it to export the product (RCP application). The product will be exported into a zip file in the workspace root directory.
 ==== dumpclasspath ====
 The resolved classpath entries for every java project will be dumped to the workspace root directory as `<project_name>.classpath`
 ==== dumpreferences ====
