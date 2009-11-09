@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<site>
-   <feature url="features/com.ind.eclipse.headlesseclipse_1.1.5.jar" id="com.ind.eclipse.headlesseclipse" version="1.1.5">
-      <category name="headlessplugins"/>
-   </feature>
-   <category-def name="headlessplugins" label="Headless Eclipse"/>
-</site>
