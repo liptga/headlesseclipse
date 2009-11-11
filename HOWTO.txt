@@ -1,0 +1,20 @@
+HOWTO run junit test plugins "headless"
+=======================================
+
+1. create launch configuration for the test plugin:
+   - Run Configurations -> JUnit Plug-in Test -> New
+   - tab "Test":
+      - use the test plugin name as the launch configuration name 
+      - select "Run all tests in the selected project..."
+      - uncheck "Run in UI thread" (just in case)
+   - tab "Main":
+      - select "Run an application" and "[No Application] - Headless Mode"
+2. replace the name of the test plugin in HeadlessTester.runAllTests() (HeadlessTester.java:158)
+   - better: parametrize it! 
+3. we need to make an adjustment in the org.eclipse.jdt.junit plugin (possibly you could be able to use our patch)
+   - show the Plug-ins View in your workbench 
+   - right-mouse click the corresponding package and select Import as -> Source Project 
+   - go to org.eclipse.jdt.internal.junit.model.JUnitModel.JUnitLaunchListener.launchChanged()
+   - method connectTestRunner() should be excecuted synchronously, so remove asynchronous clauses around it
+   - if necessary to use it in another eclipse installation, export the plugin and overwrite the old jar in the plugins folder of eclipse
+4. run com.ind.eclipse.headlessworkspace.Application with "test" parameter

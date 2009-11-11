@@ -114,6 +114,7 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 				SysOutProgressMonitor.out.println();
 
 				final List list = Arrays.asList(args);
+				boolean built = false;
 
 				final File logFile = new File(ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString(), ".build.log");
 				logFile.delete();
@@ -141,6 +142,7 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 				if (list.contains("build"))
 				{
 					builder.buildWorkspace(monitor);
+					built = true;
 				}
 
 				if (changes != null)
@@ -183,22 +185,19 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 					builder.dumpClassPath();
 	    		}
 	    		
-                if (list.contains("test"))
-                {
-                    HeadLessTester.getInstance().runAllTests(monitor);
-                }
-	    		
 	    		//wait ant log to be written out
 	    		Thread.sleep(2000);
-
-				//wait ant log to be written out
-				Thread.sleep(2000);
-
+	    		
 				blr.interrupt();
 				blr.join();
 
 				logFile.delete();
 				logFile.deleteOnExit();
+				
+                if (list.contains("test"))
+                {
+                    HeadLessTester.getInstance().runAllTests(monitor, !built);
+                }
 			}
 
 			ResourcesPlugin.getWorkspace().save(true, monitor);
