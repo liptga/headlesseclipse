@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Patch Fragment For JDT JUnit Plug-in
+Bundle-SymbolicName: org.eclipse.jdt.junit.patch
+Bundle-Version: 1.0.0
+Bundle-Vendor: PRUFTECHNIK Condition Monitoring GmbH
+Fragment-Host: org.eclipse.jdt.junit;bundle-version="[3.4.0,4.0.0)"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Eclipse-PatchFragment: true
