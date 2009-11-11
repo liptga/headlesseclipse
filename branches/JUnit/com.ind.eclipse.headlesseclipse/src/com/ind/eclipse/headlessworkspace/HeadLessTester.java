@@ -5,8 +5,10 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchManager;
+import org.eclipse.debug.core.Launch;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.internal.junit.model.JUnitModel;
@@ -31,7 +33,7 @@ import org.eclipse.pde.ui.launcher.JUnitWorkbenchLaunchShortcut;
  * Copyright (c)2009 by Prueftechnik Condition Monitoring GmbH
  * All Rights reserved.
  */
-@SuppressWarnings("restriction")
+@SuppressWarnings({ "restriction" })
 public class HeadLessTester extends TestRunListener
 {
     /*##############################################################################
@@ -61,7 +63,7 @@ public class HeadLessTester extends TestRunListener
         
     } // END getInstance
 
-    /******************************************************************************
+	/******************************************************************************
 	 * @see org.eclipse.jdt.junit.TestRunListener#sessionFinished(
 	 * org.eclipse.jdt.junit.model.ITestRunSession)
 	 */
@@ -78,7 +80,7 @@ public class HeadLessTester extends TestRunListener
 	        
 	        try 
 	        {
-	        	JUnitModel.exportTestRunSession((TestRunSession) session, exportfile);	
+	        	JUnitModel.exportTestRunSession((TestRunSession) session, exportfile);
 			} 
 	        catch (CoreException e) 
 			{
@@ -99,7 +101,6 @@ public class HeadLessTester extends TestRunListener
         SysOutProgressMonitor.out.println("TEST RUN SESSION STARTED...");
         
 	} // END sessionStarted
-
 
 	/******************************************************************************
 	 * @see org.eclipse.jdt.junit.TestRunListener#testCaseFinished(
@@ -134,7 +135,7 @@ public class HeadLessTester extends TestRunListener
 	@Override
 	public void testCaseStarted(ITestCaseElement testCaseElement) 
 	{
-        SysOutProgressMonitor.out.print("TEST CASE STARTED... ");
+        SysOutProgressMonitor.out.print("TEST CASE STARTED...  ");
         SysOutProgressMonitor.out.print(testCaseElement.getTestClassName());
         SysOutProgressMonitor.out.println("."  + testCaseElement.getTestMethodName());
         
@@ -149,8 +150,9 @@ public class HeadLessTester extends TestRunListener
      * Executes {@link AllTests} suite.
      * 
      * @param monitor the progress monitor
+     * @param build whether the workspace should be built before the launch 
      */
-    void runAllTests(IProgressMonitor monitor) throws Exception
+    void runAllTests(IProgressMonitor monitor, boolean build) throws Exception
     {	
     	SysOutProgressMonitor.out.println("CREATE ALL TESTS PROJECT...");
     	IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject("com.pruftechnik.rcm.alltests");
@@ -168,7 +170,15 @@ public class HeadLessTester extends TestRunListener
             	SysOutProgressMonitor.out.println("LAUNCH configuration " + 
             			launchConfiguration.getLocation().toOSString());
 
-    			launchConfiguration.launch(ILaunchManager.RUN_MODE, monitor, true);	
+    			ILaunch launch = launchConfiguration.launch(ILaunchManager.RUN_MODE, monitor, build);
+    			    			
+    			while (!((Launch) launch).isDisconnected() || !launch.isTerminated())
+    			{
+    				Thread.sleep(1000);
+    			}
+    			
+	    		// wait log to be written out
+	    		Thread.sleep(5000);
 			}
     	}
     	else
