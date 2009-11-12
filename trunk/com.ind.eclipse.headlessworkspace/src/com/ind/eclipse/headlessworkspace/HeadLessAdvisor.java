@@ -1,6 +1,7 @@
 package com.ind.eclipse.headlessworkspace;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +55,12 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 		SysOutProgressMonitor.out.println("POSTSTARTUP");
 		PlatformUI.getWorkbench().close();
 		SysOutProgressMonitor.out.println("WORKBENCH CLOSED");
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -91,8 +98,16 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 
 				if ("200".equals(code) && id.equals(debugpluginuiid))
 				{
-					extensionRegistry.removeExtension(configurationElement.getDeclaringExtension(), null);
-					System.out.println("DZSIH√ÅD");
+					Field mastertokenfield = extensionRegistry.getClass().getDeclaredField( "masterToken" );
+					mastertokenfield.setAccessible(true);
+					Object token = mastertokenfield.get( extensionRegistry );
+					String[] attributeNames = configurationElement.getAttributeNames();
+					for ( String attribute : attributeNames) 
+					{
+						System.out.println( attribute + " " + configurationElement.getAttribute( attribute ) );
+					}
+					extensionRegistry.removeExtension(configurationElement.getDeclaringExtension(), token );
+					System.out.println("DZSIH·D");
 				}
 			}
 
