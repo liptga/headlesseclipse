@@ -24,10 +24,6 @@ public class Application implements IApplication
 
 		final Display d = PlatformUI.createDisplay();
 
-		final Shell shell = new Shell(d, 16384);
-
-		d.readAndDispatch();
-
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		workspace.getPathVariableManager().setValue("workspace", workspace.getRoot().getLocation());
 		SysOutProgressMonitor.out.println("\"workspace\" path variable has been set.");

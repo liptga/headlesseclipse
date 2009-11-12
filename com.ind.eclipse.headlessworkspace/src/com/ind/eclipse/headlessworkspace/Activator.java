@@ -12,22 +12,6 @@ public class Activator implements BundleActivator
 	 */
 	public void start(final BundleContext context) throws Exception
 	{
-		System.out.println(context.getProperty("eclipse.registry.nulltoken"));
-		System.out.println(context.getProperty("eclipse.registry.nulltoken"));
-		System.out.println(context.getProperty("eclipse.registry.nulltoken"));
-		System.out.println(context.getProperty("eclipse.registry.nulltoken"));
-		System.out.println(context.getProperty("eclipse.registry.nulltoken"));
-		System.out.println(context.getProperty("eclipse.registry.nulltoken"));
-		System.out.println(context.getProperty("eclipse.registry.nulltoken"));
-		System.out.println(context.getProperty("eclipse.registry.nulltoken"));
-		System.out.println(context.getProperty("eclipse.registry.nulltoken"));
-		System.out.println(context.getProperty("eclipse.registry.nulltoken"));
-		System.out.println(context.getProperty("eclipse.registry.nulltoken"));
-		System.out.println(context.getProperty("eclipse.registry.nulltoken"));
-		System.out.println(context.getProperty("eclipse.registry.nulltoken"));
-		System.out.println(context.getProperty("eclipse.registry.nulltoken"));
-		System.out.println(context.getProperty("eclipse.registry.nulltoken"));
-		System.out.println(context.getProperty("eclipse.registry.nulltoken"));
 	}
 
 	/*
