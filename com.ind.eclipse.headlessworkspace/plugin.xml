@@ -8,4 +8,13 @@
       	<run class="com.ind.eclipse.headlessworkspace.Application"/>
       </application>
    </extension>
+      <extension
+         point="org.eclipse.debug.core.statusHandlers">
+      <statusHandler
+            code="200"
+            plugin="com.ind.eclipse.headlessworkspace"
+            class="com.ind.eclipse.headlessworkspace.statushandlerid"
+            id="com.ind.eclipse.headlessworkspace.statushandlerid">
+      </statusHandler>      
+   </extension>   
 </plugin>

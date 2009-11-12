@@ -7,7 +7,11 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IWorkspaceDescription;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 
@@ -25,7 +29,7 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 	@Override
 	public String getInitialWindowPerspectiveId()
 	{
-		return "java";
+		return null;
 	}
 
 	@Override
@@ -72,6 +76,26 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 	{
 		try
 		{
+			final String debugpluginid = "org.eclipse.debug.core";
+			final String debugpluginuiid = "org.eclipse.debug.ui";
+			final String statushandlersname = "statusHandlers";
+			final IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+
+			final IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(debugpluginid, statushandlersname);
+			final IConfigurationElement[] infos = extensionPoint.getConfigurationElements();
+			for (int i = 0; i < infos.length; i++)
+			{
+				final IConfigurationElement configurationElement = infos[i];
+				final String id = configurationElement.getAttribute("plugin"); //$NON-NLS-1$
+				final String code = configurationElement.getAttribute("code"); //$NON-NLS-1$
+
+				if ("200".equals(code) && id.equals(debugpluginuiid))
+				{
+					extensionRegistry.removeExtension(configurationElement.getDeclaringExtension(), null);
+					System.out.println("DZSIHÁD");
+				}
+			}
+
 			if (args.length > 2 && args[0].equals("createserver"))
 			{
 				HeadLessServerCreator.getInstance().createServer(args[1], args[2], monitor);
@@ -152,27 +176,27 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 				{
 					HeadLessWarExporter.getInstance().exportWars(monitor);
 				}
-				
+
 				if (list.contains("exportears"))
 				{
 					HeadLessEarExporter.getInstance().exportEars(monitor);
 				}
-				
+
 				if (list.contains("exportjars"))
 				{
 					HeadLessJarExporter.getInstance().exportJars(monitor);
 				}
-				
+
 				if (list.contains("exportplugins"))
 				{
 					HeadLessPluginExporter.getInstance().exportPlugins(monitor);
 				}
-				
+
 				if (list.contains("exportfeatures"))
 				{
 					HeadLessFeatureExporter.getInstance().exportFeatures(monitor);
 				}
-				
+
 				if (list.contains("exportproducts"))
 				{
 					HeadLessProductExporter.getInstance().exportProducts(monitor);
@@ -200,5 +224,4 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 			e.printStackTrace();
 		}
 	}
-
 }
