@@ -9,6 +9,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
 public class Application implements IApplication
@@ -23,6 +24,10 @@ public class Application implements IApplication
 
 		final Display d = PlatformUI.createDisplay();
 
+		final Shell shell = new Shell(d, 16384);
+
+		d.readAndDispatch();
+
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		workspace.getPathVariableManager().setValue("workspace", workspace.getRoot().getLocation());
 		SysOutProgressMonitor.out.println("\"workspace\" path variable has been set.");
@@ -30,7 +35,7 @@ public class Application implements IApplication
 		SysOutProgressMonitor.out.println("PlatformUI closed: " + retcode);
 
 		err.println(HeadLessBuilder.getInstance().getErrorCount());
-
+		d.dispose();
 		return IApplication.EXIT_OK;
 	}
 
