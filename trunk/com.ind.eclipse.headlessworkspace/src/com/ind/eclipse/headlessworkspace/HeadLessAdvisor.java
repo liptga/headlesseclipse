@@ -55,12 +55,6 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 		SysOutProgressMonitor.out.println("POSTSTARTUP");
 		PlatformUI.getWorkbench().close();
 		SysOutProgressMonitor.out.println("WORKBENCH CLOSED");
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -96,18 +90,18 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 				final String id = configurationElement.getAttribute("plugin"); //$NON-NLS-1$
 				final String code = configurationElement.getAttribute("code"); //$NON-NLS-1$
 
-				if ("200".equals(code) && id.equals(debugpluginuiid))
+				if ("200".equals(code) && !id.equals(Activator.PLUGIN_ID))
 				{
-					Field mastertokenfield = extensionRegistry.getClass().getDeclaredField( "masterToken" );
+					final Field mastertokenfield = extensionRegistry.getClass().getDeclaredField("masterToken");
 					mastertokenfield.setAccessible(true);
-					Object token = mastertokenfield.get( extensionRegistry );
-					String[] attributeNames = configurationElement.getAttributeNames();
-					for ( String attribute : attributeNames) 
+					final Object token = mastertokenfield.get(extensionRegistry);
+					final String[] attributeNames = configurationElement.getAttributeNames();
+					for (final String attribute : attributeNames)
 					{
-						System.out.println( attribute + " " + configurationElement.getAttribute( attribute ) );
+						System.out.println(attribute + " " + configurationElement.getAttribute(attribute));
 					}
-					extensionRegistry.removeExtension(configurationElement.getDeclaringExtension(), token );
-					System.out.println("DZSIHáD");
+					extensionRegistry.removeExtension(configurationElement.getDeclaringExtension(), token);
+					System.out.println("DZSIHï¿½D");
 				}
 			}
 
