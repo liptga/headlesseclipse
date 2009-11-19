@@ -261,6 +261,10 @@ public class HeadLessServerCreator
 			public void publishFinished(final IServer server, final IStatus status)
 			{
 				System.out.println("Publish finished!");
+				synchronized (HeadLessServerCreator.this)
+				{
+					HeadLessServerCreator.this.notifyAll();
+				}
 			}
 
 			public void publishStarted(final IServer server)
@@ -273,6 +277,11 @@ public class HeadLessServerCreator
 		server.start("run", monitor);
 
 		System.out.println("Waiting server to start...");
+		synchronized (this)
+		{
+			wait();
+		}
+		System.out.println("Waiting publish to finish...");
 		synchronized (this)
 		{
 			wait();

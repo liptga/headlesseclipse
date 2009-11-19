@@ -101,7 +101,6 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 						System.out.println(attribute + " " + configurationElement.getAttribute(attribute));
 					}
 					extensionRegistry.removeExtension(configurationElement.getDeclaringExtension(), token);
-					System.out.println("DZSIH�D");
 				}
 			}
 
