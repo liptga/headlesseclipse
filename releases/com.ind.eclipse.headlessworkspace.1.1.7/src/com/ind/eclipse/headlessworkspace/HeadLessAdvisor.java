@@ -50,6 +50,7 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 		SysOutProgressMonitor.out.println("POSTSTARTUP");
 		PlatformUI.getWorkbench().close();
 		SysOutProgressMonitor.out.println("WORKBENCH CLOSED");
+		System.exit(0);
 	}
 
 	@Override
