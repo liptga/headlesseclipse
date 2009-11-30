@@ -29,13 +29,13 @@ So, it is not a true headless application, because it will initialize a workbenc
 
 Possible parameters:
 ==== import ====
-Imports all directory containing .project file to the workspace. If a project is already imported, then it will be opened (if closed) and refreshed.
+Imports all directory containing .project file to the workspace. If a project is already imported, then it will be opened (if closed) and *refreshed*.
 The .svn directories will be marked as 'team private', as the workspace assumed to be a checkout from subversion.
 ==== clean ====
 Calls the clean build on every project, causing output folders to be purged.
 ==== build ====
-Builds all projects using incremental ('Manual Build') building.
-After a clean, or for the first time, a full build ('After a "Clean"') will be run.
+Builds all projects using *incremental* ('Manual Build') building.
+After a clean, or for the first time, a *full build ('After a "Clean"')* will be run.
 _It will change the external tools builder to log output to a file. At the end, it will restore the original state._
 ==== exportwars ====
 This will export all dynamic web projects to a war file in the workspace root directory as `<project_name>.war`
