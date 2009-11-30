@@ -165,12 +165,12 @@ public class HeadLessTester extends TestRunListener
     	{    	
     		SysOutProgressMonitor.out.println("Launch configurations found: " + lc.length);
     		
-    		for (ILaunchConfiguration launchConfiguration : lc) 
+    		for (ILaunchConfiguration launchConfig : lc) 
     		{
             	SysOutProgressMonitor.out.println("LAUNCH configuration " + 
-            			launchConfiguration.getLocation().toOSString());
+            			launchConfig.getLocation().toOSString());
 
-    			ILaunch launch = launchConfiguration.launch(ILaunchManager.RUN_MODE, monitor, build);
+    			ILaunch launch = launchConfig.launch(ILaunchManager.RUN_MODE, monitor, build);
     			    			
     			while (!((Launch) launch).isDisconnected() || !launch.isTerminated())
     			{
@@ -178,7 +178,7 @@ public class HeadLessTester extends TestRunListener
     			}
     			
 	    		// wait log to be written out
-	    		Thread.sleep(5000);
+    			Thread.sleep(5000);
 			}
     	}
     	else

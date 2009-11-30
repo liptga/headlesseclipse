@@ -126,6 +126,7 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
 				Map changes = null;
 				if (list.contains("import"))
 				{
+					new HeadlessProjectImport(args, monitor).importProjects();
 					builder.importProjects(monitor);
 				}
 
@@ -199,12 +200,22 @@ public class HeadLessAdvisor extends WorkbenchAdvisor
                     HeadLessTester.getInstance().runAllTests(monitor, !built);
                 }
 			}
-
-			ResourcesPlugin.getWorkspace().save(true, monitor);
 		}
 		catch (final Exception e)
 		{
 			e.printStackTrace();
+		}
+		finally 
+		{
+			try
+			{
+				ResourcesPlugin.getWorkspace().save(true, monitor);
+			}
+			catch (Exception ce)
+			{
+				SysOutProgressMonitor.out.println("failed to save workspace");
+				ce.printStackTrace(SysOutProgressMonitor.out);
+			}
 		}
 	}
 
