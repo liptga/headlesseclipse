@@ -1,3 +1,6 @@
+===1.1.8===
+Workaround for the [http://bit.ly/4SiuEx freezing Eclipse issue.] is corrected. Display is disposed correctly.
+
 ===1.1.7===
 Workaround for the [http://bit.ly/4SiuEx freezing Eclipse issue.]
 
