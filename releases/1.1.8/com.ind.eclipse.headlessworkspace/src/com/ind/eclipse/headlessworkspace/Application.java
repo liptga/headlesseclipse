@@ -29,8 +29,28 @@ public class Application implements IApplication
 		final int retcode = PlatformUI.createAndRunWorkbench(d, new HeadLessAdvisor(args, monitor));
 		SysOutProgressMonitor.out.println("PlatformUI closed: " + retcode);
 
-		err.println(HeadLessBuilder.getInstance().getErrorCount());
+		err.println("Number of errors: " + HeadLessBuilder.getInstance().getErrorCount());
 
+		SysOutProgressMonitor.out.println("Display disposed.");
+
+		final Thread exiter = new Thread(new Runnable() {
+
+			public void run()
+			{
+				//adding the opportunity for eclipse to exit normally
+				try
+				{
+					Thread.sleep(10000);
+				}
+				catch (final InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+				System.exit(0);
+			}
+		});
+		exiter.setDaemon(true);
+		exiter.start();
 		return IApplication.EXIT_OK;
 	}
 
