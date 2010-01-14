@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: HeadlessImport Plug-in
+Bundle-Name: Headless Workspace Plugin
 Bundle-SymbolicName: com.ind.eclipse.headlessworkspace;singleton:=true
 Bundle-Version: 1.1.8
 Bundle-Activator: com.ind.eclipse.headlessworkspace.Activator
