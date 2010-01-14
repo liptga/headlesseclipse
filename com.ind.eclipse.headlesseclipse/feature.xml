@@ -2,7 +2,7 @@
 <feature
       id="com.ind.eclipse.headlesseclipse"
       label="HeadlessEclipse"
-      version="1.1.5"
+      version="1.1.8"
       provider-name="IND">
 
    <description url="http://www.example.com/description">
@@ -21,7 +21,7 @@
          id="com.ind.eclipse.headlessworkspace"
          download-size="0"
          install-size="0"
-         version="1.1.5"
+         version="1.1.8"
          unpack="false"/>
 
 </feature>
