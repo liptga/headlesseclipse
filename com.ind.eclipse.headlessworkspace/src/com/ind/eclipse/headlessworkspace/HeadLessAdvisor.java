@@ -94,36 +94,7 @@ public class HeadLessAdvisor extends WorkbenchAdvisor {
                 HeadLessServerCreator.getInstance().createServer(args[1], args[2], monitor);
 
             } else if (args.length == 0) {
-                SysOutProgressMonitor.out.println();
-                SysOutProgressMonitor.out.println("Possible parameters: import clean build exportwars dumpclasspath");
-                SysOutProgressMonitor.out.println("OR: dumpreferences");
-                SysOutProgressMonitor.out
-                        .println("OR to create a server, call this way: createserver <server name> <server properties file path>");
-                SysOutProgressMonitor.out.println();
-                SysOutProgressMonitor.out
-                        .println("import: imports all directory containing .project file to the workspace.\r\n\tThe .svn directories will be marked as 'team private'.\r\n\tIt will also set the name of the default JRE to 'JRE'.");
-                SysOutProgressMonitor.out.println("clean: calls the clean build on every project.");
-                SysOutProgressMonitor.out
-                        .println("build: builds all projects using incremental building.\r\n\tAfter a clean, or for the first time, a full build will be run.\r\n\tIt will change the external tools builder to log output to a file. At the end, it will restore the original state.");
-                SysOutProgressMonitor.out
-                        .println("exportwars: this will export all dynamic web projects to a war file in the workspace root directory as <project_name>.war");
-                SysOutProgressMonitor.out
-                        .println("exportears: this will export all enterprise application projects to an ear file in the workspace root directory as <project_name>.ear");
-                SysOutProgressMonitor.out
-                        .println("exportjars: this will search all *.jardesc files, and runs them to export jar files");
-                SysOutProgressMonitor.out
-                        .println("exportplugins: exports all plugins to the 'exportedplugins.zip' file in the workspace root directory");
-                SysOutProgressMonitor.out
-                        .println("exportfeatures: exports all features to the 'exportedfeatures.zip' file in the workspace root directory");
-                SysOutProgressMonitor.out
-                        .println("exportupdatesites: exports all update sites");
-                SysOutProgressMonitor.out
-                        .println("dumpclasspath: the resolved classpath entries for every java project will be dumped to the workspace root directory as <project_name>.classpath");
-                SysOutProgressMonitor.out
-                        .println("dumpreferences: dumps the project build order, listing project static and dynamic references.");
-                SysOutProgressMonitor.out
-                        .println("createserver: creates a server instance of <server name>.\r\n\tThe properties file should contain the server specific parameters. It will print out what is missing...");
-                SysOutProgressMonitor.out.println();
+                printCommandLineParameters();
                 return;
             } else if (args.length == 1 && args[0].equals("dumpreferences")) {
                 final HeadLessBuilder builder = HeadLessBuilder.getInstance();
@@ -196,7 +167,7 @@ public class HeadLessAdvisor extends WorkbenchAdvisor {
                 if (list.contains("exportupdatesites")) {
                     HeadLessUpdateSiteExporter.getInstance().exportUpdateSites(monitor);
                 }
-                
+
                 if (list.contains("dumpclasspath")) {
                     builder.dumpClassPath();
                 }
@@ -215,5 +186,40 @@ public class HeadLessAdvisor extends WorkbenchAdvisor {
         } catch (final Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Prints the command line parameters.
+     */
+    private void printCommandLineParameters() {
+        SysOutProgressMonitor.out.println();
+        SysOutProgressMonitor.out.println("Possible parameters: import clean build exportwars dumpclasspath");
+        SysOutProgressMonitor.out.println("OR: dumpreferences");
+        SysOutProgressMonitor.out
+                .println("OR to create a server, call this way: createserver <server name> <server properties file path>");
+        SysOutProgressMonitor.out.println();
+        SysOutProgressMonitor.out
+                .println("import: imports all directory containing .project file to the workspace.\r\n\tThe .svn directories will be marked as 'team private'.\r\n\tIt will also set the name of the default JRE to 'JRE'.");
+        SysOutProgressMonitor.out.println("clean: calls the clean build on every project.");
+        SysOutProgressMonitor.out
+                .println("build: builds all projects using incremental building.\r\n\tAfter a clean, or for the first time, a full build will be run.\r\n\tIt will change the external tools builder to log output to a file. At the end, it will restore the original state.");
+        SysOutProgressMonitor.out
+                .println("exportwars: this will export all dynamic web projects to a war file in the workspace root directory as <project_name>.war");
+        SysOutProgressMonitor.out
+                .println("exportears: this will export all enterprise application projects to an ear file in the workspace root directory as <project_name>.ear");
+        SysOutProgressMonitor.out
+                .println("exportjars: this will search all *.jardesc files, and runs them to export jar files");
+        SysOutProgressMonitor.out
+                .println("exportplugins: exports all plugins to the 'exportedplugins.zip' file in the workspace root directory");
+        SysOutProgressMonitor.out
+                .println("exportfeatures: exports all features to the 'exportedfeatures.zip' file in the workspace root directory");
+        SysOutProgressMonitor.out.println("exportupdatesites: exports all update sites");
+        SysOutProgressMonitor.out
+                .println("dumpclasspath: the resolved classpath entries for every java project will be dumped to the workspace root directory as <project_name>.classpath");
+        SysOutProgressMonitor.out
+                .println("dumpreferences: dumps the project build order, listing project static and dynamic references.");
+        SysOutProgressMonitor.out
+                .println("createserver: creates a server instance of <server name>.\r\n\tThe properties file should contain the server specific parameters. It will print out what is missing...");
+        SysOutProgressMonitor.out.println();
     }
 }
